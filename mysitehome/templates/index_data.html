@@ -1,0 +1,75 @@
+{% extends 'new_index.html' %}
+
+{% block content %}
+  <div class="ui equal width grid" style="width:70%;margin:5px 0 5px 0">
+          <div class="row">
+              <div class="column">
+                  <div class="ui red segment">
+                      <div class="ui statistic">
+                          <div class="value">
+                              {{ counts }}
+                          </div>
+                          <div class="label">
+                              Documents
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="column">
+                  <div class="ui blue segment">
+                      <div class="ui statistic">
+                          <div class="value">
+                              2,000
+                          </div>
+                          <div class="label">
+                              views
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="row">
+              <div class="column">
+                  <div class="ui segment">
+                      <div class="ui divided items">
+                          {% for item in ItemInfo %}
+                          <div class="item">
+                              <div class="content">
+                                  <div class="header">
+                                      {{ item.title }}
+                                  </div>
+                                  <div class="meta">
+                                      {% for tag in item.area %}
+                                      <span class="ui blue label">{{ tag }}</span>
+                                      {% endfor %}
+                                  </div>
+                                  <div class="description">
+                                      <span class="ui red label">价格:  {{ item.price }}</span>
+                                      <span class="ui red label">成色: {{ item.look }}</span>
+                                      <span class="ui red label">分布日期: {{ item.pub_date }}</span>
+                                  </div>
+                              </div>
+                          </div>
+                          {% endfor %}
+                      </div>
+                      <div class="ui small pagination menu">
+                          {% if ItemInfo.has_previous %}
+                          <a class="icon item" href="?page={{ ItemInfo.previous_page_number }}">
+                              <i class="left arrow icon"></i>
+                          </a>
+                          {% endif %}
+                          <div class="disable item">
+                              {{ ItemInfo.number }} of {{ ItemInfo.paginator.num_pages }}
+                          </div>
+                          {% if ItemInfo.has_next %}
+                              <a class="icon item" href="?page={{ ItemInfo.next_page_number }}">
+                                  <i class="right arrow icon"></i>
+                              </a>
+                          {% endif %}
+                      </div>
+                  </div>
+              </div>
+          </div>
+  </div>
+{% endblock %}
+

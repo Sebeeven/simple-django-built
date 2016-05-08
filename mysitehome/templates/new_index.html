@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+    <title>Sebeeven Web</title>
+    <link rel="stylesheet" href="{% static 'css/semantic.css' %}">
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/semantic.js' %}"></script>
+    <script src="{% static 'js/exporting.js' %}"></script>
+    <script src="{% static 'js/highcharts.js' %}"></script>
+    <script src="{% static 'js/highcharts-more.js' %}"></script>
+</head>
+<body>
+  <div class="ui thin visible left sidebar inverted vertical menu">
+      <div class="header item">
+          <img src="{% static 'images/logo2.png' %}">
+      </div>
+      <div class="item">
+          Document
+          <i class="browser icon"></i>
+      </div>
+      <div class="item">
+          Charts
+          <i class="bar chart icon"></i>
+      </div>
+      <div class="item">
+          Others
+          <i class="idea icon"></i>
+      </div>
+  </div>
+
+
+  <div class="pusher">
+      <div class="ui top attached menu">
+          <div class="header item" id="menu">
+              Menu
+              <i class="content icon"></i>
+          </div>
+          <div class="item"> data analysis </div>
+          <div class="item"> The lab </div>
+          <div class="item"> data </div>
+      </div>
+
+      {% block content %}
+
+      {% endblock %}
+
+  </div>
+  <script>
+      $('.ui.sidebar').sidebar('is visible')
+  </script>
+  <!--<script>-->
+    <!--$('#menu').click(function() {-->
+    <!--$('.ui.sidebar').sidebar('toggle');-->
+    <!--})-->
+  <!--</script>-->
+  {% block chartjs %}
+
+  {% endblock %}
+
+
+</body>
+</html>

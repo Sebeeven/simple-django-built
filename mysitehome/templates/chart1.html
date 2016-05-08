@@ -1,0 +1,219 @@
+{% extends 'new_index.html' %}
+
+{% block content %}
+
+<div class="ui equal width grid" style="width:70%;margin:5px 0 5px 0">
+          <div class="row">
+              <div class="column">
+                  <div class="ui container segment">
+                      <div class="ui compact menu">
+                          <div class="ui simple dropdown item">
+                            Area
+                            <i class="dropdown icon"></i>
+                            <div class="menu">
+                              <div class="item" id="CY">chaoyang</div>
+                              <div class="item" id="HD">haiding</div>
+                              <div class="item" id="TZ">tongzhou</div>
+                            </div>
+                          </div>
+                      </div>
+                      <div class="ui container" id="chart1"></div>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+<div class="ui equal width grid" style="width:70%;margin:5px 0 5px 0">
+
+{# 发帖总量柱状图 #}
+<div class="row">
+  <div class="column">
+    <div class="ui container segment">
+      <div class="ui container" id="chart2"></div>
+    </div>
+  </div>
+</div>
+
+{# 饼图 #}
+<div class="row">
+  <div class="column">
+    <div class="ui container segment">
+      <div class="ui container" id="pie1"></div>
+    </div>
+  </div>
+
+  <div class="column">
+      <div class="ui container segment">
+      <div class="ui container" id="pie2"></div>
+    </div>
+  </div>
+</div>
+</div>
+{% endblock %}
+
+{% block chartjs %}
+<script>
+    $('#CY').click(function() {
+        $('#chart1').highcharts({
+        credits:{
+          enabled: false
+        },
+        title: {
+            text: '朝阳二手交易',
+        },
+        yAxis: {
+            title: {
+                text: 'TOP3'
+                }
+        },
+        series: {{ chart_CY|safe }}
+    });
+});
+</script>
+
+<script>
+    $('#HD').click(function() {
+        $('#chart1').highcharts({
+        credits:{
+          enabled: false
+        },
+        title: {
+            text: '海淀二手交易',
+        },
+        yAxis: {
+            title: {
+                text: 'TOP3'
+                }
+        },
+        series: {{ chart_HD|safe }}
+    });
+});
+</script>
+
+<script>
+    $('#TZ').click(function() {
+        $('#chart1').highcharts({
+        credits:{
+          enabled: false
+        },
+        title: {
+            text: '通州二手交易',
+        },
+        yAxis: {
+            title: {
+                text: 'TOP3'
+                }
+        },
+        series: {{ chart_TZ|safe }}
+    });
+});
+</script>
+
+<script>
+    $(function () {
+        $('#chart2').highcharts({
+            credits:{
+              enabled: false
+            },
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: '发帖总量柱状图'
+            },
+            xAxis: {
+                type: 'category'
+            },
+            yAxis: {
+                title: {
+                    text: '数量'
+                }
+            },
+            legend: {
+                enabled: false
+            },
+
+            series: [{
+                name: 'posts',
+                colorByPoint: true,
+                data: {{ series_post|safe }}
+            }]
+        });
+    });
+
+    </script>
+
+<script>
+    $(function () {
+        $('#pie1').highcharts({
+            credits:{
+              enabled: false
+            },
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: '一天内交易物品种类分布'
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: false
+                    },
+                    showInLegend: true
+                }
+            },
+            series: [{
+                name: 'Percent',
+                colorByPoint: true,
+                data: {{ pie1_data|safe }}
+            }]
+        });
+    });
+    </script>
+
+<script>
+    $(function () {
+        $('#pie2').highcharts({
+            credits:{
+              enabled: false
+            },
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: '一天内交易物品地区分布'
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: false
+                    },
+                    showInLegend: true
+                }
+            },
+            series: [{
+                name: 'Percent',
+                colorByPoint: true,
+                data: {{ pie2_data|safe }}
+            }]
+        });
+    });
+    </script>
+{% endblock %}
